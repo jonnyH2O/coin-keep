@@ -8,11 +8,7 @@ interface AdjustButtonProps {
 export default function AdjustButton({ delta, onPress }: AdjustButtonProps) {
   const label = delta > 0 ? `+${delta}` : `${delta}`;
   return (
-    <button
-      type="button"
-      className={`${styles.button} ${delta > 0 ? styles.positive : styles.negative}`}
-      onClick={() => onPress(delta)}
-    >
+    <button type="button" className={styles.button} onClick={() => onPress(delta)}>
       {label}
     </button>
   );

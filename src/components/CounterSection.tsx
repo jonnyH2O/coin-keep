@@ -12,9 +12,13 @@ interface CounterSectionProps {
 
 export default function CounterSection({ label, value, onAdjust, accent }: CounterSectionProps) {
   return (
-    <section className={`${styles.section} ${styles[accent]}`} aria-label={label}>
-      <div className={styles.label}>{label}</div>
-      <div className={styles.readout}>{value}</div>
+    <section className={`${styles.section} ${accent === 'combat' ? styles.sectionCombat : styles.sectionGold}`} aria-label={label}>
+      <div className={styles.frame}>
+        <div className={`${styles.track} ${accent === 'combat' ? styles.trackCombat : styles.trackGold}`}>
+          <div className={styles.label}>{label}</div>
+          <div className={styles.readout}>{value}</div>
+        </div>
+      </div>
       <div className={styles.buttons}>
         {DELTAS.map((delta) => (
           <AdjustButton key={delta} delta={delta} onPress={onAdjust} />

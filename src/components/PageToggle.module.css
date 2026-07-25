@@ -1,14 +1,17 @@
 .button {
-  min-height: 44px;
+  min-height: var(--tap-min);
+  box-sizing: border-box;
   padding: 0 var(--space-3);
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-size: 0.95rem;
-  font-weight: 600;
+  border-radius: var(--radius-frame);
+  border: 1px solid var(--frame-mid);
+  background: var(--panel-bg);
+  color: var(--text-gold);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 .button:active {
-  transform: scale(0.96);
+  transform: translateY(1px);
 }

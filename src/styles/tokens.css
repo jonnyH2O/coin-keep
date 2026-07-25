@@ -1,18 +1,65 @@
 :root {
-  --color-bg: #0b0d12;
-  --color-surface: #161a23;
-  --color-text: #f4f6fb;
-  --color-text-dim: #9aa3b5;
-  --color-border: #262b38;
+  /* Fonts — see docs/THEME.md §1 */
+  --font-display: 'Cinzel', Georgia, 'Times New Roman', serif;
+  --font-numeral: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  --color-combat: #ff6b6b;
-  --color-gold: #ffd166;
-  --color-positive: #7cff9e;
-  --color-negative: #ff8383;
+  /* Surfaces */
+  --panel-bg: #14100a;
+  --panel-bg-translucent: rgba(20, 16, 10, 0.9);
+  --panel-recessed: #0a0806;
+  --parchment: #e8dcb8;
+  --parchment-shadow: #d8c89a;
 
-  --color-gold-medal: #ffd76a;
-  --color-silver-medal: #cfd6e2;
-  --color-bronze-medal: #d99a63;
+  /* Frame metal ramp (beveled gold-brass border) */
+  --frame-light: #f4e2a8;
+  --frame-mid: #c9a227;
+  --frame-dark: #5a4318;
+  --frame-outer: #1a1408;
+
+  /* Text */
+  --text-gold: #f2c94c;
+  --text-offwhite: #f5f0e6;
+  --ink: #2b2013;
+  --ink-muted: #4a3826;
+  --text-disabled: #6b6559;
+
+  /* Resource ramps */
+  --ember-deep: #3a0a0a;
+  --ember-mid: #b3221a;
+  --ember-bright: #ff7a3c;
+  --amber-deep: #4a2f06;
+  --amber-mid: #c9820c;
+  --amber-bright: #ffcb47;
+
+  /* Item-quality ramp (Elo pill tier color, see docs/THEME.md §4) */
+  --quality-poor: #9d9d9d;
+  --quality-common: #ffffff;
+  --quality-uncommon: #1eff00;
+  --quality-rare: #0070dd;
+  --quality-epic: #a335ee;
+  --quality-legendary: #ff8000;
+
+  /* Rank medals (leaderboard top 3 — literal, not the quality ramp) */
+  --medal-gold: #d4af37;
+  --medal-silver: #c0c0c0;
+  --medal-bronze: #cd7f32;
+  --medal-ring: #3a2a12;
+
+  /* Danger (Clear All) */
+  --danger-bg-deep: #2a0d0a;
+  --danger-bg-mid: #4a1a12;
+  --danger-border: #6b3a1a;
+  --danger-text: #e0a479;
+
+  /* Overlay / tooltip (not used by any component yet) */
+  --overlay-bg: rgba(8, 6, 4, 0.96);
+  --overlay-border: var(--frame-mid);
+
+  /* Layout */
+  --radius-frame: 2px;
+  --radius-overlay: 0px;
+  --frame-border-width: clamp(2px, 1vw, 3px);
+  --rivet-size: clamp(6px, 2vw, 10px);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -20,6 +67,5 @@
   --space-4: 24px;
   --space-5: 32px;
 
-  --radius: 14px;
   --tap-min: 56px;
 }

@@ -9,29 +9,82 @@
   padding: var(--space-3) var(--space-4);
 }
 
-.combat {
-  border-bottom: 1px solid var(--color-border);
+.sectionCombat {
+  border-bottom: var(--frame-border-width) solid var(--frame-outer);
+  box-shadow: inset 0 -1px 0 var(--frame-dark);
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  border: var(--frame-border-width) solid var(--frame-outer);
+  border-radius: var(--radius-frame);
+  background: linear-gradient(180deg, var(--frame-light) 0%, var(--frame-mid) 45%, var(--frame-dark) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--frame-light),
+    inset -1px -1px 2px var(--frame-dark),
+    inset 1px 0 0 rgba(244, 226, 168, 0.4);
+  padding: var(--frame-border-width);
+}
+
+.frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, var(--frame-light) 0%, var(--frame-dark) 70%, transparent 72%),
+    radial-gradient(circle, var(--frame-light) 0%, var(--frame-dark) 70%, transparent 72%),
+    radial-gradient(circle, var(--frame-light) 0%, var(--frame-dark) 70%, transparent 72%),
+    radial-gradient(circle, var(--frame-light) 0%, var(--frame-dark) 70%, transparent 72%);
+  background-repeat: no-repeat;
+  background-size: var(--rivet-size) var(--rivet-size);
+  background-position:
+    top 4px left 4px,
+    top 4px right 4px,
+    bottom 4px left 4px,
+    bottom 4px right 4px;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+  border-radius: calc(var(--radius-frame) - 1px);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.trackCombat {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(0, 0, 0, 0.25) 22px 24px),
+    linear-gradient(180deg, var(--ember-mid) 0%, var(--ember-deep) 100%);
+}
+
+.trackGold {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(0, 0, 0, 0.25) 22px 24px),
+    linear-gradient(180deg, var(--amber-mid) 0%, var(--amber-deep) 100%);
 }
 
 .label {
+  font-family: var(--font-display);
   font-size: clamp(0.9rem, 3vw, 1.2rem);
   font-weight: 700;
   letter-spacing: 0.15em;
-}
-
-.combat .label {
-  color: var(--color-combat);
-}
-
-.gold .label {
-  color: var(--color-gold);
+  color: var(--text-gold);
 }
 
 .readout {
+  font-family: var(--font-numeral);
   font-size: clamp(4rem, 22vw, 8rem);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   line-height: 1;
+  color: var(--text-offwhite);
 }
 
 .buttons {

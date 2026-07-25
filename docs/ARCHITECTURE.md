@@ -56,7 +56,8 @@ blank white page with 404s in the console for every asset.
 hero-realms-combat-tracker/
 ├── docs/
 │   ├── VISION.md
-│   └── ARCHITECTURE.md
+│   ├── ARCHITECTURE.md
+│   └── THEME.md               # visual design spec — see §12
 ├── data/
 │   ├── matches.json          # hand-edited source of truth
 │   └── standings.json        # generated — never hand-edited
@@ -83,9 +84,10 @@ hero-realms-combat-tracker/
 │   │   └── useLocalStorageNumber.ts
 │   └── styles/
 │       ├── global.css          # resets, safe-area, touch-action, theme
-│       └── tokens.css          # colors, spacing, type scale
+│       └── tokens.css          # design tokens — see docs/THEME.md §2
 ├── public/
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── fonts/                  # self-hosted Cinzel + Inter .woff2 — see docs/THEME.md §1
 ├── vite.config.ts
 ├── tsconfig.json
 ├── package.json
@@ -596,3 +598,21 @@ skipped.
 6. **Edge cases and hardening.** Empty roster, single-match players,
    very long names, a roster past a screenful (confirm plain scroll is
    still fine), a short README documenting "how to add a match."
+
+## 12. Visual theme
+
+Full visual design — a World of Warcraft-inspired re-skin (dark ornate
+gold-brass frames, parchment leaderboard, beveled buttons) — is specified
+separately in [THEME.md](THEME.md): the complete token set, per-component
+CSS treatments detailed enough to implement directly, the font stack and
+its OFL licensing, accessibility floors that override the theme wherever
+the two conflict, a mobile performance budget, and a list of deliberate
+departures from the source look.
+
+Two structural implications for what's described above: `src/styles/tokens.css`
+(§2) gets replaced with THEME.md's token table rather than extended
+piecemeal, and `public/fonts/` (§2) is a new addition to hold the two
+self-hosted `.woff2` files THEME.md calls for. Nothing else in this
+document — component tree, data model, Elo module, build pipeline —
+changes to accommodate the theme; it's a styling pass over the existing
+structure, not a rearchitecture.

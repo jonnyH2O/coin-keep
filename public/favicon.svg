@@ -1,9 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#0b0d12"/>
+  <rect width="512" height="512" rx="72" fill="#14100a"/>
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4e2a8"/>
+      <stop offset="45%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#5a4318"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b3221a"/>
+      <stop offset="100%" stop-color="#3a0a0a"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9820c"/>
+      <stop offset="100%" stop-color="#4a2f06"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="196" fill="url(#ring)"/>
+  <circle cx="256" cy="256" r="176" fill="#0a0806"/>
   <clipPath id="c"><circle cx="256" cy="256" r="176"/></clipPath>
   <g clip-path="url(#c)">
-    <rect x="80" y="80" width="352" height="176" fill="#ff6b6b"/>
-    <rect x="80" y="256" width="352" height="176" fill="#ffd166"/>
+    <rect x="80" y="80" width="352" height="176" fill="url(#ember)"/>
+    <rect x="80" y="256" width="352" height="176" fill="url(#amber)"/>
   </g>
-  <circle cx="256" cy="256" r="176" fill="none" stroke="#262b38" stroke-width="6"/>
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#1a1408" stroke-width="6"/>
 </svg>
