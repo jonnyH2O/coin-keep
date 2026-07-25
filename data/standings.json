@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-07-25T18:26:13.089Z",
+  "sourceMatchCount": 2,
+  "players": [
+    {
+      "name": "Bob",
+      "elo": 54,
+      "wins": 1,
+      "losses": 1,
+      "gamesPlayed": 2,
+      "winRate": 0.5
+    },
+    {
+      "name": "Alice",
+      "elo": 49,
+      "wins": 1,
+      "losses": 1,
+      "gamesPlayed": 2,
+      "winRate": 0.5
+    },
+    {
+      "name": "Carol",
+      "elo": 49,
+      "wins": 0,
+      "losses": 1,
+      "gamesPlayed": 1,
+      "winRate": 0
+    },
+    {
+      "name": "Dave",
+      "elo": 49,
+      "wins": 0,
+      "losses": 1,
+      "gamesPlayed": 1,
+      "winRate": 0
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, auto) 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rank {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  background: var(--color-surface);
+  color: var(--color-text-dim);
+}
+
+.gold {
+  background: var(--color-gold-medal);
+  color: #2a1e00;
+}
+
+.silver {
+  background: var(--color-silver-medal);
+  color: #23262e;
+}
+
+.bronze {
+  background: var(--color-bronze-medal);
+  color: #2a1500;
+}
+
+.nameCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  max-width: 42vw;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.record {
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderLine {
+  position: relative;
+  height: 1px;
+  border-bottom: 2px dotted var(--color-border);
+}
+
+.elo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-weight: 800;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.winRate {
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 3.5ch;
+}

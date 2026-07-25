@@ -1,0 +1,25 @@
+:root {
+  --color-bg: #0b0d12;
+  --color-surface: #161a23;
+  --color-text: #f4f6fb;
+  --color-text-dim: #9aa3b5;
+  --color-border: #262b38;
+
+  --color-combat: #ff6b6b;
+  --color-gold: #ffd166;
+  --color-positive: #7cff9e;
+  --color-negative: #ff8383;
+
+  --color-gold-medal: #ffd76a;
+  --color-silver-medal: #cfd6e2;
+  --color-bronze-medal: #d99a63;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+
+  --radius: 14px;
+  --tap-min: 56px;
+}
