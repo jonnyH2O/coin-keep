@@ -76,7 +76,7 @@
 .elo {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: var(--elo-position, 50%);
   transform: translate(-50%, -50%);
   background: var(--panel-bg);
   border: 1px solid var(--tier-color, var(--frame-mid));
