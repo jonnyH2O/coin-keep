@@ -1,7 +1,7 @@
 import AdjustButton from './AdjustButton';
 import styles from './CounterSection.module.css';
 
-const DELTAS = [5, 1, -1, -5];
+const DELTAS = [-5, -1, 1, 5];
 
 interface CounterSectionProps {
   label: string;
