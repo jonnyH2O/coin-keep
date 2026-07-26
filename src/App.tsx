@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ClearAllButton from './components/ClearAllButton';
+import InfoButton from './components/InfoButton';
 import PageToggle from './components/PageToggle';
+import RankInfoModal from './components/RankInfoModal';
 import { useLocalStorageNumber } from './hooks/useLocalStorageNumber';
 import Leaderboard from './pages/Leaderboard';
 import Tracker from './pages/Tracker';
@@ -12,6 +14,7 @@ export default function App() {
   const [page, setPage] = useState<Page>('tracker');
   const [combat, setCombat] = useLocalStorageNumber('hrct:combat', 0);
   const [gold, setGold] = useLocalStorageNumber('hrct:gold', 0);
+  const [showRankInfo, setShowRankInfo] = useState(false);
 
   return (
     <div className={styles.app}>
@@ -24,7 +27,7 @@ export default function App() {
             }}
           />
         ) : (
-          <span />
+          <InfoButton onClick={() => setShowRankInfo(true)} />
         )}
         <PageToggle page={page} onToggle={() => setPage(page === 'tracker' ? 'leaderboard' : 'tracker')} />
       </header>
@@ -38,6 +41,7 @@ export default function App() {
       ) : (
         <Leaderboard />
       )}
+      {showRankInfo && <RankInfoModal onClose={() => setShowRankInfo(false)} />}
     </div>
   );
 }

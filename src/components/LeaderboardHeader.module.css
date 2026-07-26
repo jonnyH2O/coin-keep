@@ -1,0 +1,49 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 120px 1fr 56px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--parchment-shadow);
+  border-bottom: 1px solid var(--medal-ring);
+}
+
+.rankSpacer {
+  width: 28px;
+}
+
+.nameLabel {
+  font-family: var(--font-numeral);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.sortButton {
+  min-height: 40px;
+  font-family: var(--font-numeral);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-bottom: 2px solid transparent;
+}
+
+.rankButton {
+  justify-self: center;
+}
+
+.winRateButton {
+  justify-self: end;
+}
+
+.active {
+  color: var(--ink);
+  border-bottom-color: var(--frame-mid);
+}

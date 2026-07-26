@@ -1,0 +1,29 @@
+.button {
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-frame);
+  border: 1px solid var(--frame-mid);
+  background: var(--panel-bg);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  background-color: var(--text-gold);
+  -webkit-mask-image: url('/icons/info-svgrepo-com.svg');
+  mask-image: url('/icons/info-svgrepo-com.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}

@@ -91,7 +91,7 @@ purpose.
 | Token | Value | Used for | Measured contrast |
 |---|---|---|---|
 | `--text-gold` | `#f2c94c` | Headings/labels **on dark panels only**, sparse & large text only (§5) | 11.9:1 on `--panel-bg` |
-| `--text-offwhite` | `#f5f0e6` | Dense/frequent text **on dark panels**: numerals, Elo pill text, secondary UI copy | 16.7:1 on `--panel-bg` |
+| `--text-offwhite` | `#f5f0e6` | Dense/frequent text **on dark panels**: numerals, Elo badge number, secondary UI copy | 16.7:1 on `--panel-bg` |
 | `--ink` | `#2b2013` | Primary text **on parchment**: player names | 11.6:1 on `--parchment` |
 | `--ink-muted` | `#4a3826` | Secondary text **on parchment**: W-L record | 8.2:1 on `--parchment` |
 | `--text-disabled` | `#6b6559` | De-emphasized/inactive text (no component uses this yet — see §6) | 3.3:1 on `--panel-bg` |
@@ -110,21 +110,25 @@ on `--parchment` is **1.16:1** — a hard fail, not a judgment call. See §5.
 | `--amber-mid` | `#c9820c` | Gold-counter track mid-tone |
 | `--amber-bright` | `#ffcb47` | Gold-counter accent glow |
 
-### Item-quality ramp (reused for the Elo pill's tier color, §5)
+### Elo tier glow ramp (badge icons, §5)
 
-The real WoW item-quality colors — a widely documented, simple flat-color
-convention, not extracted art:
+The Elo badge is an illustrated gem/rank icon (`public/icons/StreamerUiIcon1-6.png`,
+lowest to highest tier) with a colored glow behind it, rather than a plain
+colored pill. Each glow token is matched to its icon's own dominant color
+rather than an arbitrary ramp, so the glow reads as "coming from" the gem
+instead of clashing with it. **These are a first pass — expect to retune
+the exact hex values once the icons are live and visible together.**
 
-| Token | Value | Quality |
+| Token | Value | Icon |
 |---|---|---|
-| `--quality-poor` | `#9d9d9d` | Poor (grey) |
-| `--quality-common` | `#ffffff` | Common (white) |
-| `--quality-uncommon` | `#1eff00` | Uncommon (green) |
-| `--quality-rare` | `#0070dd` | Rare (blue) |
-| `--quality-epic` | `#a335ee` | Epic (purple) |
-| `--quality-legendary` | `#ff8000` | Legendary (orange) |
+| `--tier-stone-glow` | `#9d9d9d` | `StreamerUiIcon1.png` — grey/dark crystal |
+| `--tier-bronze-glow` | `#d9822b` | `StreamerUiIcon2.png` — amber gem |
+| `--tier-gold-glow` | `#2ecc59` | `StreamerUiIcon3.png` — green gem, gold laurel frame |
+| `--tier-platinum-glow` | `#2ee6d9` | `StreamerUiIcon4.png` — cyan medallion, most ornate |
+| `--tier-diamond-glow` | `#2fa8e0` | `StreamerUiIcon5.png` — blue diamond |
+| `--tier-master-glow` | `#a335ee` | `StreamerUiIcon6.png` — purple gem (top tier) |
 
-### Rank medals (leaderboard top 3 — literal, deliberately *not* the quality ramp, §5)
+### Rank medals (leaderboard top 3 — literal, deliberately *not* the tier ramp, §5)
 
 | Token | Value | Used for |
 |---|---|---|
@@ -355,47 +359,90 @@ theme in general:**
 | Player name | Parchment (direct) | `--ink`, `--font-display` |
 | W-L record | Parchment (direct) | `--ink-muted` |
 | Win rate % | Parchment (direct) | `--ink`, `--font-numeral` |
-| Elo number | Dark medallion pill (§below) | `--text-offwhite`, `--font-numeral` |
+| Elo number | On top of the tier icon (§below) | `--text-offwhite`, `--font-numeral`, dark text-shadow for legibility over any icon color |
 
-**Rank medals (top 3): literal gold/silver/bronze, not the item-quality
-ramp.** This is a deliberate choice where the brief offered a choice.
+**Rank medals (top 3): literal gold/silver/bronze, not the tier ramp
+below.** This is a deliberate choice where the brief offered a choice.
 Gold/silver/bronze-for-1st/2nd/3rd is a universal, instantly-decoded
-convention; the item-quality ramp's order (grey → white → green → blue →
-purple → orange) requires WoW-specific knowledge to read as an ordinal
-ranking, and orange-beats-purple-beats-blue is actively counter-intuitive
-to anyone who doesn't already know that convention. At a glance, in a dim
-room, ordinal clarity wins. Each medal circle gets a `--medal-ring`
-outline so it stays legible against parchment regardless of how close its
-fill hue sits to the parchment tone.
+convention that doesn't depend on knowing this app's own tier bands. At a
+glance, in a dim room, ordinal clarity wins. Each medal circle gets a
+`--medal-ring` outline so it stays legible against parchment regardless of
+how close its fill hue sits to the parchment tone.
 
-**The item-quality ramp is used instead for the Elo pill's border/glow,
-banded by rating** — this is where "Elo sits like an item level" (the
-brief's own framing) actually fits, since Elo is a power-level stat, not
-a rank:
+**Elo is shown as an illustrated tier icon, not a plain colored pill** —
+this is where "Elo sits like an item level" (the brief's own framing)
+actually fits, since Elo is a power-level stat, not a rank. Six named
+tiers, each with its own icon (`public/icons/StreamerUiIconN.png`), are
+banded across the 1–100 scale following a standard ranked-game
+progression (Stone/Bronze/Gold/Platinum/Diamond/Master). The bands are
+intentionally **uneven** — narrow through the middle of the scale, with a
+cutoff right at 50 (the Elo starting value), since that's where most
+ratings actually cluster early in a group's history; wide at the two
+extremes where few players will ever land:
 
-| Elo range | Quality tier | Token |
-|---|---|---|
-| 1–16 | Poor | `--quality-poor` |
-| 17–33 | Common | `--quality-common` |
-| 34–50 | Uncommon | `--quality-uncommon` |
-| 51–67 | Rare | `--quality-rare` |
-| 68–84 | Epic | `--quality-epic` |
-| 85–100 | Legendary | `--quality-legendary` |
+| Elo range | Tier | Icon | Glow token |
+|---|---|---|---|
+| 1–34 | Stone | `StreamerUiIcon1.png` (grey crystal) | `--tier-stone-glow` |
+| 35–44 | Bronze | `StreamerUiIcon2.png` (amber gem) | `--tier-bronze-glow` |
+| 45–49 | Gold | `StreamerUiIcon3.png` (green gem, gold laurel) | `--tier-gold-glow` |
+| 50–54 | Platinum | `StreamerUiIcon4.png` (cyan medallion) | `--tier-platinum-glow` |
+| 55–64 | Diamond | `StreamerUiIcon5.png` (blue diamond) | `--tier-diamond-glow` |
+| 65–100 | Master | `StreamerUiIcon6.png` (purple gem) | `--tier-master-glow` |
+
+Tier names follow genre convention rather than literally describing each
+icon's art (e.g. "Gold" is the green gem with a gold laurel frame, not a
+yellow gem) — this is a common enough rank-tier vocabulary
+(Stone/Bronze/.../Master) that matching the *name* to player expectations
+matters more than matching the *color* to the name.
 
 ```css
-.elo-pill {
-  background: var(--panel-bg); /* dark medallion set into the parchment */
-  border: 1px solid var(--tier-color); /* one of the --quality-* tokens above */
-  box-shadow: 0 0 4px var(--tier-color);
+.elo-badge {
+  position: absolute; /* positioned along the leader line, see below */
+  width: 40px;
+  height: 40px;
+}
+
+.elo-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* icons aren't all the same aspect ratio */
+  filter: drop-shadow(0 0 4px var(--tier-glow));
+}
+
+.elo-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-offwhite);
-  font: 800 1rem var(--font-numeral);
+  font: 900 0.7rem var(--font-numeral);
   font-variant-numeric: tabular-nums;
+  /* every icon has bright highlight regions somewhere in its art — the
+     dark text-shadow keeps the number readable regardless of what part
+     of which icon it happens to sit over, rather than assuming one text
+     color works everywhere. */
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 3px rgba(0, 0, 0, 0.9);
 }
 ```
 
-A brand-new player starts at Elo 50 — right at the Uncommon/Rare boundary,
-which reads as "unproven, not bottom-tier" — a reasonable coincidence of
-the existing Elo scale (see ARCHITECTURE.md §5) and the tier bands above.
+A brand-new player starts at Elo 50 — exactly the bottom edge of
+Platinum, the fourth of six tiers. That's a deliberate placement, not a
+coincidence: the bands were drawn with a cutoff right at 50 specifically
+so the starting rating lands just inside "solidly middling" rather than
+at the bottom of the whole scale.
+
+**Referencing `public/` assets from component code.** The tier icons live
+in `public/icons/`, not `src/`, so they aren't processed by Vite's bundler
+— a plain `/icons/StreamerUiIcon1.png` string would resolve against the
+domain root in production and silently 404 under the GitHub Pages base
+path (`/coin-keep/`, see ARCHITECTURE.md §1). Build the URL from
+`import.meta.env.BASE_URL` instead (`` `${import.meta.env.BASE_URL}icons/${icon}` ``),
+which Vite resolves to `/` in dev and `/coin-keep/` in the production
+build.
 
 **The dotted leader line reads as an engraved groove, not a CSS `border:
 dotted`:**
@@ -428,11 +475,16 @@ edge, which is what makes it read as carved rather than printed.
 }
 ```
 
-No component currently needs this (there are no modals/tooltips in the
-app today), but the tokens exist for the first one that does. Note this
-app has no mouse, so there's no hover-triggered tooltip pattern to design
-around — if an overlay is ever added, it'll be triggered by a tap, not a
-hover.
+First (and so far only) consumer: `RankInfoModal`, opened by the info
+button on the Leaderboard page's header — a tap-triggered overlay, not a
+hover-triggered one, since this app has no mouse. It lists all six tiers
+(icon, name, Elo range) highest-to-lowest plus a short plain-language
+paragraph on how the Elo system works, for a curious player who isn't
+going to read ARCHITECTURE.md. Its panel uses `--overlay-bg`/`--overlay-border`/
+`--radius-overlay` as specified; tier names inside it get `--text-gold`
+(sparse, one line each) and the Elo ranges/description get `--text-offwhite`
+(denser, more frequently read) — the same dark-panel text rules as
+everywhere else (§5), applied to a new surface rather than a new rule.
 
 ---
 
@@ -463,7 +515,12 @@ wins.** No exceptions for the sake of authenticity.
 - **Minimum sizes:**
   - Counter readout: unchanged, `clamp(4rem, 22vw, 8rem)` — always huge.
   - Section label (`COMBAT`/`GOLD`): ≥ 0.9rem (14.4px).
-  - Elo pill numeral: ≥ 1rem (16px).
+  - Elo badge numeral: 0.7rem (11.2px) — smaller than every other floor in
+    this list, and a deliberate exception: the badge icon's shape, color,
+    and position on the line carry the primary at-a-glance signal, and the
+    overlaid number is a secondary, confirming readout for someone who
+    wants the exact value. Verified legible in practice (dark text-shadow,
+    §4) against every tier icon's brightest highlight regions.
   - Win rate / W-L record: ≥ 1rem (16px) for win rate, ≥ 0.85rem (13.6px)
     for the smaller W-L line beneath the name.
 - **Measured contrast ratios** (sRGB relative-luminance, WCAG formula):
@@ -551,7 +608,8 @@ overlap the touch targets they're framing.
 | `--radius-frame: 2px`, not a hard `0` | Authentic WoW chrome is almost perfectly rectangular. A razor-sharp 0px corner can read as a rendering glitch on some mobile displays at small sizes; 2px is close enough to sharp to keep the metal-frame look while avoiding that. (Overlays/tooltips *do* get a hard `0` per the brief — that's a different, larger surface where the artifact risk doesn't apply the same way.) |
 | No tiled textures anywhere (parchment grain, brushed metal) | Two independent reasons, not one: performance (§6) and avoiding anything that could resemble an extracted asset. Flat colors and soft gradients stand in for both. |
 | Combat/Gold "resource bars" don't visually fill or empty with the value | Real rage/mana bars are bounded 0–100% and show that fraction. COMBAT/GOLD here are unbounded counters with no ceiling, so there's no fraction to show — the bar styling is atmosphere around a numeral, not a literal resource gauge. Don't let a future contributor "finish the metaphor" by wiring a fill percentage to an unbounded number. |
-| Item-quality ramp used for Elo tier, not for rank medals | The brief offered this as an open choice for the top-3 treatment. Literal gold/silver/bronze wins there for universal, instant ordinal legibility; the quality ramp's own internal order isn't obvious to a non-WoW-player and would undercut a glanceable ranking. It's used instead for the Elo pill, where its "power level" meaning actually fits. |
+| Illustrated tier icons + a matched glow used for Elo, not for rank medals | The brief offered this as an open choice for the top-3 treatment. Literal gold/silver/bronze wins there for universal, instant ordinal legibility; an arbitrary quality-style ramp's internal order isn't obvious to anyone unfamiliar with that specific convention and would undercut a glanceable ranking. Illustrated icons are used instead for the Elo badge, where "power level" framing actually fits and the artwork itself carries most of the signal. |
+| Uneven Elo tier bands (34/10/5/5/10/36), not six even ~17-point bands | Most ratings cluster near the 50 starting point early in a group's history, with a cutoff right at 50 itself; the two 5-point bands flanking it (Gold 45–49, Platinum 50–54) give the finest differentiation right where it matters, while the wide catch-all bands at the extremes (1–34, 65–100) cost little since few players will ever reach them. |
 | Cinzel (not Cinzel Decorative) for all in-UI headings/names | Decorative's swash caps cost real scanning speed across a long leaderboard. Decorative is reserved for a hypothetical splash/title screen outside the app's core surfaces — nothing in the current app uses it. |
 | Numerals in a plain heavy sans (Inter), not a themed serif | The counter readout is the single most important thing on screen, read at a glance mid-turn. A serif — however good-looking — reads slower than a heavy sans with tabular figures at any size. This is the clearest case of the accessibility floor (§5) overriding the aesthetic direction outright. |
 | No hover states anywhere | WoW is a mouse-and-tooltip-driven desktop UI. This app is touch-only; every "hover" concept here becomes a press/active state instead, and the tooltip tokens (§4) are speculative for a future tap-triggered overlay, not a hover pattern. |

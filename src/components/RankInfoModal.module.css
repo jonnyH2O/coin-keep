@@ -1,0 +1,97 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.panel {
+  width: 100%;
+  max-width: 420px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: var(--overlay-bg);
+  border: 1px solid var(--overlay-border);
+  border-radius: var(--radius-overlay);
+  padding: var(--space-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-gold);
+}
+
+.close {
+  min-height: 40px;
+  min-width: 40px;
+  box-sizing: border-box;
+  border-radius: var(--radius-frame);
+  border: 1px solid var(--frame-mid);
+  color: var(--text-offwhite);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.close:active {
+  transform: translateY(1px);
+}
+
+.tierList {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+}
+
+.tierRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--frame-outer);
+}
+
+.tierIcon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex: none;
+}
+
+.tierName {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-gold);
+}
+
+.tierRange {
+  font-family: var(--font-numeral);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-offwhite);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--font-numeral);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-offwhite);
+}

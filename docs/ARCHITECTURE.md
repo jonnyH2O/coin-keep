@@ -76,10 +76,15 @@ hero-realms-combat-tracker/
 │   │   ├── Tracker.tsx
 │   │   └── Leaderboard.tsx
 │   ├── components/
-│   │   ├── CounterSection.tsx  # shared COMBAT/GOLD readout + buttons
-│   │   ├── AdjustButton.tsx    # single +5/+1/-1/-5 button
-│   │   ├── LeaderboardRow.tsx  # name … dotted leader … Elo … win rate
-│   │   └── PageToggle.tsx
+│   │   ├── CounterSection.tsx    # shared COMBAT/GOLD readout + buttons
+│   │   ├── AdjustButton.tsx      # single +5/+1/-1/-5 button
+│   │   ├── ClearAllButton.tsx
+│   │   ├── PageToggle.tsx
+│   │   ├── InfoButton.tsx        # opens RankInfoModal, Leaderboard page only
+│   │   ├── RankInfoModal.tsx     # tier guide + Elo explainer overlay
+│   │   ├── LeaderboardHeader.tsx # column labels + rank/win-rate sort toggle
+│   │   ├── LeaderboardRow.tsx    # name … dotted leader … Elo … win rate
+│   │   └── eloTiers.ts           # tier names/cutoffs/icons, shared by row + modal
 │   ├── hooks/
 │   │   └── useLocalStorageNumber.ts
 │   └── styles/
@@ -87,6 +92,7 @@ hero-realms-combat-tracker/
 │       └── tokens.css          # design tokens — see docs/THEME.md §2
 ├── public/
 │   ├── favicon.svg
+│   ├── icons/                   # StreamerUiIcon1-6.png — Elo tier badge art
 │   └── fonts/                  # self-hosted Cinzel + Inter .woff2 — see docs/THEME.md §1
 ├── vite.config.ts
 ├── tsconfig.json
@@ -104,17 +110,20 @@ both are visible in the same diff when a match is added.
 ## 3. Component tree
 
 ```
-App                          (page: 'tracker' | 'leaderboard', in useState)
+App                          (page: 'tracker' | 'leaderboard'; showRankInfo, both in useState)
 ├── Header
-│   ├── ClearAllButton        (Tracker page only)
+│   ├── ClearAllButton        (Tracker page only, top-left)
+│   ├── InfoButton            (Leaderboard page only, top-left — opens RankInfoModal)
 │   └── PageToggle            (always, top-right)
 ├── Tracker                   (rendered when page === 'tracker')
 │   ├── CounterSection label="COMBAT"
 │   │   └── AdjustButton × 4  (+5 / +1 / -1 / -5)
 │   └── CounterSection label="GOLD"
 │       └── AdjustButton × 4
-└── Leaderboard                (rendered when page === 'leaderboard')
-    └── LeaderboardRow × N     (one per player in standings.json)
+├── Leaderboard                (rendered when page === 'leaderboard'; sortBy in useState)
+│   ├── LeaderboardHeader      (Name/W-L label, Rank / Win Rate sort buttons)
+│   └── LeaderboardRow × N     (one per player in standings.json, in current sort order)
+└── RankInfoModal              (rendered when showRankInfo is true, overlays everything)
 ```
 
 `CounterSection` is the one reusable piece on the Tracker: it takes a
@@ -217,8 +226,11 @@ hand-edit:
 ```
 
 - `players` is pre-sorted by the generator (win rate desc, then Elo desc,
-  then games played desc, then name asc) — the app renders it in the order
-  it receives, no client-side sorting.
+  then games played desc, then name asc) — this is the initial order the
+  Leaderboard renders. The page also supports re-sorting by rank (Elo) or
+  win rate client-side (a `LeaderboardHeader` toggle, default: rank); that
+  sort is computed from this same array in memory, not a second generated
+  file — see §8.
 - `generatedAt` and `sourceMatchCount` exist for the staleness check in §6,
   not for display (though there's no harm surfacing "last updated" in a
   footer if useful).
@@ -518,6 +530,16 @@ simply fails first.
 - **Page toggle**: `useState<'tracker' | 'leaderboard'>('tracker')` in
   `App.tsx`. Deliberately not a route (§1) and not persisted across a
   refresh — the app always reopens to the Tracker.
+- **Leaderboard sort order**: `useState<'rank' | 'winRate'>('rank')` local
+  to `Leaderboard.tsx`, re-sorting the same in-memory `standings.players`
+  array (`useMemo`) rather than touching the generated file or re-fetching
+  anything. Not persisted — reopening the Leaderboard always starts back
+  at the rank sort, same reasoning as the page toggle not persisting.
+- **Rank info modal**: `useState<boolean>` in `App.tsx` (`showRankInfo`),
+  toggled by the header's info button and the modal's own close/backdrop
+  handlers. Purely presentational state — the modal's content (tier names,
+  icons, cutoffs) comes from the same `ELO_TIERS` constant `LeaderboardRow`
+  already uses (`src/components/eloTiers.ts`), not a second copy of it.
 
 No global store (Redux/Zustand/Context-as-store) — every piece of state
 here is owned by exactly one component or hook and never needs to be read

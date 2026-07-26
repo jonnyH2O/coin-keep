@@ -31,13 +31,15 @@
   --amber-mid: #c9820c;
   --amber-bright: #ffcb47;
 
-  /* Item-quality ramp (Elo pill tier color, see docs/THEME.md §4) */
-  --quality-poor: #9d9d9d;
-  --quality-common: #ffffff;
-  --quality-uncommon: #1eff00;
-  --quality-rare: #0070dd;
-  --quality-epic: #a335ee;
-  --quality-legendary: #ff8000;
+  /* Elo tier glow ramp — matched to each tier icon's own dominant color
+     (public/icons/StreamerUiIconN.png). Placeholder pending tuning —
+     see docs/THEME.md §4. */
+  --tier-stone-glow: #9d9d9d;
+  --tier-bronze-glow: #d9822b;
+  --tier-gold-glow: #2ecc59;
+  --tier-platinum-glow: #2ee6d9;
+  --tier-diamond-glow: #2fa8e0;
+  --tier-master-glow: #a335ee;
 
   /* Rank medals (leaderboard top 3 — literal, not the quality ramp) */
   --medal-gold: #d4af37;
