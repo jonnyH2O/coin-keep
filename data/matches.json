@@ -44,6 +44,11 @@
       "date": "2026-07-26",
       "players": ["Ellie", "Jack"],
       "winner": "Jack"
+    },
+        {
+      "date": "2026-07-26",
+      "players": ["Jonny", "Jack", "Nate"],
+      "winner": "Jack"
     }    
   ]
 }
