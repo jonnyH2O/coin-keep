@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-28T16:17:25.132Z",
-  "sourceMatchCount": 12,
+  "generatedAt": "2026-07-29T03:49:18.930Z",
+  "sourceMatchCount": 13,
   "players": [
     {
       "name": "Max",
@@ -11,15 +11,15 @@
       "winRate": 1
     },
     {
-      "name": "Jack",
-      "elo": 56,
-      "wins": 5,
-      "losses": 5,
-      "gamesPlayed": 10,
+      "name": "Jonny",
+      "elo": 58,
+      "wins": 6,
+      "losses": 6,
+      "gamesPlayed": 12,
       "winRate": 0.5
     },
     {
-      "name": "Jonny",
+      "name": "Jack",
       "elo": 55,
       "wins": 5,
       "losses": 6,
@@ -28,22 +28,14 @@
     },
     {
       "name": "Ellie",
-      "elo": 46,
+      "elo": 45,
       "wins": 1,
-      "losses": 3,
-      "gamesPlayed": 4,
-      "winRate": 0.25
+      "losses": 4,
+      "gamesPlayed": 5,
+      "winRate": 0.2
     },
     {
       "name": "Evan",
-      "elo": 49,
-      "wins": 0,
-      "losses": 1,
-      "gamesPlayed": 1,
-      "winRate": 0
-    },
-    {
-      "name": "Joe",
       "elo": 49,
       "wins": 0,
       "losses": 1,
@@ -56,6 +48,14 @@
       "wins": 0,
       "losses": 1,
       "gamesPlayed": 1,
+      "winRate": 0
+    },
+    {
+      "name": "Joe",
+      "elo": 48,
+      "wins": 0,
+      "losses": 2,
+      "gamesPlayed": 2,
       "winRate": 0
     },
     {
